@@ -1,0 +1,10 @@
+j ai oublier mon mot de passer
+chatbot: vouler vous demander le changement de votre mot de passe
+exemple: j'ai un probleme de connexion de mon ordi avec le web
+chat bot: c'est un probleme de connexion internet, voulez vous que je vous guide a resoudre ce probleme
+chatbot: verifier le cable reseau
+chatbot: verifier l'écone de la conexion
+chatbot: verifier les paramaitres du connexion web
+j'ai probleme de demarage de mon orinateur
+chatbot: verifier le cable d'allumentation
+chatbot: esque vous ecouter de bips sonnaire
