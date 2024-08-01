@@ -7,4 +7,4 @@ chatbot: verifier l'écone de la conexion
 chatbot: verifier les paramaitres du connexion web
 j'ai probleme de demarage de mon orinateur
 chatbot: verifier le cable d'allumentation
-chatbot: est que vous ecouter de bips sonnaire
+chatbot: est que vous ecoutez des bips sonnaire
