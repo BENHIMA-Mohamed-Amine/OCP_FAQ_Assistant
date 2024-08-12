@@ -135,7 +135,7 @@
 											"top": 126,
 											"width": 199,
 											"height": 13,
-											"text": "#Username: String",
+											"text": "#email: String",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2968,7 +2968,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGQ/zl0Yr6FY3A="
 							},
-							"name": "Username",
+							"name": "email",
 							"visibility": "protected",
 							"type": "String"
 						},
