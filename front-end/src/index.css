@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 200px 4fr;
+  grid-template-areas: "side main";
+}
+
+.layout .sidebar {
+  grid-area: "side";
+}
+
+.layout .main {
+  grid-area: "main";
+}
+
+.conv-title {
+  display: grid;
+  grid-template-columns: 4fr 1.5fr;
+  grid-template-areas: "conv-text conv-icons";
+  justify-content: space-between;
+}
+
+.conv-title .conv-text {
+  grid-area: "conv-text";
+}
+
+.conv-title .conv-icons {
+  grid-area: "conv-icons";
+}
