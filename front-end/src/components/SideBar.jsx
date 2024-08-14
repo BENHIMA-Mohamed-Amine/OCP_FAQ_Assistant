@@ -49,19 +49,23 @@ const SideBar = (props) => {
   };
 
   return (
-    <div className="bg-[#F6F6F6] h-full sidebar">
-      <div className="flex justify-between px-3 py-7">
-        <img
-          src="./src/assets/sidebar.svg"
-          alt="hide side bar"
-          className="hover:cursor-pointer x-[20px] h-[20px]"
-          onClick={props.toggleSidebar}
-        />
-        <img
-          src="./src/assets/edit.svg"
-          alt="new conversation"
-          className="hover:cursor-pointer x-[20px] h-[20px]"
-        />
+    <div className="bg-[#F9F9F9] h-dvh overflow-auto sidebar">
+      <div className="flex items-center justify-between h-[80px] px-3 py-7">
+        <button className="flex justify-center items-center hover:bg-[hsl(0,0%,90%)] focus:outline-none rounded-md h-[30px] w-[30px]">
+          <img
+            src="./src/assets/sidebar.svg"
+            alt="hide side bar"
+            className="hover:cursor-pointer x-[20px] h-[20px]"
+            onClick={props.toggleSidebar}
+          />
+        </button>
+        <button className="flex justify-center items-center hover:bg-[hsl(0,0%,90%)] focus:outline-none rounded-md h-[30px] w-[30px]">
+          <img
+            src="./src/assets/edit.svg"
+            alt="new conversation"
+            className="hover:cursor-pointer x-[20px] h-[20px]"
+          />
+        </button>
       </div>
       {isDataLoaded && (
         <div className="p-3">
@@ -71,7 +75,9 @@ const SideBar = (props) => {
               className="conv-title mb-3 h-9 hover:bg-[hsl(0,0%,90%)] rounded-md p-[8px]"
             >
               {!isEditTitleClicked ? (
-                <span className="conv-text text-sm text-main">{title}</span>
+                <span className="conv-text text-sm text-main overflow-hidden">
+                  {title}
+                </span>
               ) : (
                 <input
                   type="text"
@@ -115,7 +121,7 @@ const SideBar = (props) => {
         </div>
       )}
       {!isDataLoaded && (
-        <div className="flex items-start justify-center h-screen">
+        <div className="flex items-start justify-center">
           <div
             role="status"
             className="flex flex-col items-center justify-center mt-16"

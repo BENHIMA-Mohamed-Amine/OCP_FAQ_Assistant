@@ -41,9 +41,9 @@ export default function Home() {
   }, [isSidebarOpen]);
 
   return (
-    <div className="layout h-dvh">
+    <div className="layout min-h-dvh">
       {isSidebarOpen && <SideBar toggleSidebar={toggleSidebar} />}
-      <div className={`flex-1 h-full transition-all duration-300 main`}>
+      <div className="flex-1 main">
         <NavBar
           role="admin"
           currentPage="assistant"

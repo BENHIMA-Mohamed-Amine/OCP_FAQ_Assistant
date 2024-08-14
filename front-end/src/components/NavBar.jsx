@@ -8,15 +8,19 @@ export default function NavBar(props) {
     currentPage === page ? "text-custom-green" : "text-main";
 
   return (
-    <nav className="flex items-center justify-between px-3 py-[17px] text-sm">
+    <nav className="flex items-center justify-between px-3 py-[17px] text-sm h-[80px]">
       <div className="flex items-center space-x-1">
         {!isSidebarOpen && (
-          <img
-            src="./src/assets/sidebar.svg"
-            alt="hide side bar"
-            className="hover:cursor-pointer x-[20px] h-[20px]"
-            onClick={toggleSidebar}
-          />
+          <>
+            <button className="flex justify-center items-center hover:bg-[hsl(0,0%,90%)] focus:outline-none rounded-md h-[30px] w-[30px]">
+              <img
+                src="./src/assets/sidebar.svg"
+                alt="hide side bar"
+                className="hover:cursor-pointer x-[20px] h-[20px]"
+                onClick={toggleSidebar}
+              />
+            </button>
+          </>
         )}
         <Link to="/">
           <img
