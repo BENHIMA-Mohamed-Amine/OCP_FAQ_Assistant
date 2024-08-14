@@ -7,7 +7,7 @@ export const Message = (props) => {
   const textColor = messageFor === "ai" ? "text-main" : "text-[#f9f9f9]";
   const justifyContent = messageFor === "ai" ? "justify-start" : "justify-end";
   return (
-    <div className="flex flex-col p-6">
+    <div className="flex flex-col px-6 py-2">
       <div
         className={`flex ${justifyContent} space-x-1 items-center px-5 pb-2`}
       >

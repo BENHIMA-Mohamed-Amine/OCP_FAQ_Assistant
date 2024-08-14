@@ -4,7 +4,7 @@ import { AIMessage } from "./AIMessage";
 
 export const MessageContainer = () => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col">
       <HumanMessage />
       <AIMessage />
     </div>
