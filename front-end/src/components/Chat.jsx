@@ -3,8 +3,8 @@ import { MessageContainer } from "./MessageContainer";
 
 export const Chat = () => {
   return (
-    <div className=" w-5/6 md:w-4/6 mx-auto p-4 flex flex-col justify-between h-[calc(100%-80px)]">
-      <div className="flex-1">
+    <div className=" w-5/6 md:w-4/6 mx-auto p-4 flex flex-col justify-between max-h-[calc(100%-80px)] h-[calc(100%-80px)] overflow-auto">
+      <div className="flex-1 overflow-auto">
         <MessageContainer />
         <MessageContainer />
       </div>

@@ -41,7 +41,7 @@ export default function Home() {
   }, [isSidebarOpen]);
 
   return (
-    <div className="layout min-h-dvh">
+    <div className="layout h-dvh">
       {isSidebarOpen && <SideBar toggleSidebar={toggleSidebar} />}
       <div className="flex-1 main">
         <NavBar
