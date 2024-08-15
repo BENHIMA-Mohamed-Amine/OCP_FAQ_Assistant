@@ -49,7 +49,7 @@ const SideBar = (props) => {
   };
 
   return (
-    <div className="bg-[#F9F9F9] h-dvh overflow-auto sidebar">
+    <div className="bg-[hsl(0,0%,95%)] h-dvh overflow-auto sidebar">
       <div className="flex items-center justify-between h-[80px] px-3 py-7">
         <button className="flex justify-center items-center hover:bg-[hsl(0,0%,90%)] focus:outline-none rounded-md h-[30px] w-[30px]">
           <img

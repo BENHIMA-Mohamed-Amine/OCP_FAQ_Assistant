@@ -33,7 +33,7 @@ export const Chat = () => {
         <MessageContainer />
       </div>
       <div>
-        <div className="relative border p-4 ps-8 pe-12 border-gray-300 rounded-lg bg-[#F9F9F9] focus:ring-[hsl(0,0%,90%)] focus:border-[hsl(0,0%,90%)]">
+        <div className="relative border p-[10px] ps-8 pe-12 border-gray-300 rounded-3xl bg-[hsl(0,0%,95%)]">
           <textarea
             type="text"
             id="search"

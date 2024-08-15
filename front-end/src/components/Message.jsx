@@ -3,7 +3,7 @@ import React from "react";
 export const Message = (props) => {
   const { messageFor } = props;
   const bgColor =
-    messageFor === "ai" ? "bg-[hsl(0,0%,95%)]" : "bg-custom-green";
+    messageFor === "ai" ? "bg-[hsl(0,0%,90%)]" : "bg-custom-green";
   const textColor = messageFor === "ai" ? "text-main" : "text-[#f9f9f9]";
   const justifyContent = messageFor === "ai" ? "justify-start" : "justify-end";
   return (
