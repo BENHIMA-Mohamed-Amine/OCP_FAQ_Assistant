@@ -10,7 +10,7 @@ export function FooterComponent() {
     <div className="bg-custom-green">
       <Footer
         container
-        className="flex flex-col items-center w-5/6 md:w-4/6 md:flex-row  mx-auto bg-custom-green"
+        className="flex flex-col items-center w-5/6 md:w-4/6 md:flex-row  mx-auto bg-custom-green shadow-none h-[97px] md:h-[67px]"
       >
         <FooterCopyright
           href="#"

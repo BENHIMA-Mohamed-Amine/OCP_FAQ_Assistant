@@ -4,7 +4,7 @@ import { Button } from "./Button";
 
 export const GuestNavBar = () => {
   return (
-    <nav className="flex items-center justify-between px-3 py-[17px] text-sm">
+    <nav className="flex items-center justify-between px-3 py-[17px] text-sm h-[101px]">
       <div className="flex items-center space-x-1">
         <Link to="/" className="px-4 py-[10px]">
           <img
