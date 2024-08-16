@@ -6,6 +6,7 @@ import { Landing } from "./pages/Landing";
 import { SignUp } from "./pages/SignUp";
 import { LogIn } from "./pages/LogIn";
 import "./index.css";
+import { EditProfile } from "./pages/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LogIn />,
+  },
+  {
+    path: "/edit-profile",
+    element: <EditProfile />,
   },
 ]);
 
