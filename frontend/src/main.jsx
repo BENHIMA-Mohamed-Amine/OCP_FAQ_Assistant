@@ -7,13 +7,7 @@ import { SignUp } from "./pages/SignUp";
 import { LogIn } from "./pages/LogIn";
 import { EditProfile } from "./pages/EditProfile";
 import { Issues } from "./pages/Issues";
-import { PrimeReactProvider } from "primereact/api";
-// import "primeflex/primeflex.css";
-// import "primereact/resources/primereact.css";
-// import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "./index.css";
-import "./flag.css";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,8 +37,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <PrimeReactProvider>
-      <RouterProvider router={router} />
-    </PrimeReactProvider>
+    <RouterProvider router={router} />
   </StrictMode>
 );
