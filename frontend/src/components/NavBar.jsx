@@ -10,7 +10,7 @@ export default function NavBar(props) {
   return (
     <nav className="flex items-center justify-between px-3 py-[17px] text-sm h-[80px]">
       <div className="flex items-center space-x-1">
-        {!isSidebarOpen && (
+        {!isSidebarOpen && currentPage == "assistant" && (
           <>
             <button className="flex justify-center items-center hover:bg-[hsl(0,0%,90%)] focus:outline-none rounded-md h-[30px] w-[30px]">
               <img

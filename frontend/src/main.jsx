@@ -8,6 +8,7 @@ import { LogIn } from "./pages/LogIn";
 import { EditProfile } from "./pages/EditProfile";
 import { Issues } from "./pages/Issues";
 import "./index.css";
+import { Users } from "./pages/Users";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/issues",
     element: <Issues />,
+  },
+  {
+    path: "/users",
+    element: <Users />,
   },
 ]);
 
