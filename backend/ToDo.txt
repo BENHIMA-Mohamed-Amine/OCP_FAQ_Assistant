@@ -1,0 +1,31 @@
+Backend routes:
+
+    User routes
+        - register user
+        - edit user
+        - delete user
+        - log in
+        - log out
+
+    Issues routes
+        - create issue
+        - edit issue
+        - delete issue
+
+    assitant route
+        - ask_assistant
+            - create conv
+            - add_msg
+
+    conversation routes
+        - edit conv title
+        - delete conv
+
+    Statistiques routes
+        - stats router
+            - total users
+            - total issues
+            - total admins
+
+
+
