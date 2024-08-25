@@ -1,6 +1,8 @@
 Backend routes:
 
     User routes
+        - get_all user
+        - get user
         - register user
         - edit user
         - delete user
@@ -8,6 +10,7 @@ Backend routes:
         - log out
 
     Issues routes
+        get all issues
         - create issue
         - edit issue
         - delete issue

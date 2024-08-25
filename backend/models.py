@@ -16,7 +16,7 @@ class ConversationCreate(ConversationBase):
     model used for creating a conversation
     """
 
-    pass
+    user_id: int
 
 
 class Conversation(ConversationBase, table=True):
@@ -46,10 +46,10 @@ class MessageCreate(MessageBase):
     model used for creating a message
     """
 
-    pass
+    conv_id: int
 
 
-class Message(SQLModel, table=True):
+class Message(MessageBase, table=True):
     """
     model used to create the messages table
     """
@@ -96,7 +96,7 @@ class IssueBase(SQLModel):
 
 
 class IssueCreate(IssueBase):
-    pass
+    creator_id: int | None = None
 
 
 class Issue(IssueBase, table=True):
@@ -109,4 +109,12 @@ class Issue(IssueBase, table=True):
 class Token(SQLModel):
     access_token: str
     token_type: str
-    user_id: int
+
+
+class TokenData(SQLModel):
+    email: str
+
+
+class AskAssistant(SQLModel):
+    query: str
+    conv_id: int | None = None

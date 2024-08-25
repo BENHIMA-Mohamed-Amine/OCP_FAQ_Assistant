@@ -1,17 +1,25 @@
-from fastapi import HTTPException
-from sqlalchemy.orm import Session
-from .. import models, schemas
+from sqlmodel import Session, select
+from .. import models
 
 
-# get all the conversations
-def get_conversations(db: Session):
-    return db.query(models.Conversation).all()
+def create(conv: models.ConversationCreate, session: Session) -> models.Conversation:
+    conv_db = models.Conversation.model_validate(conv)
+    session.add(conv_db)
+    session.commit()
+    session.refresh(conv_db)
+    return conv_db
 
 
-# create new conversation
-def add_conversation(db: Session, conv: schemas.ConvCreate):
-    db_conv = models.Conversation(title_conversation=conv.title)
-    db.add(db_conv)
-    db.commit()
-    db.refresh(db_conv)
-    return db_conv
+def edit_title(conv: models.Conversation, session: Session) -> models.Conversation:
+    conv_db = session.get(models.Conversation, conv.conversation_id)
+    conv_db.title = conv.title
+    session.add(conv_db)
+    session.commit()
+    session.refresh(conv_db)
+    return conv_db
+
+
+def delete(id: int, session: Session):
+    conv_db = session.get(models.Conversation, id)
+    session.delete(conv_db)
+    session.commit()
