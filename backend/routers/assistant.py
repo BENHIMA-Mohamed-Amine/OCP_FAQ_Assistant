@@ -10,17 +10,22 @@ from typing import List
 router = APIRouter(prefix="/assistant", tags=["assistant"])
 
 
-@router.post("/", response_model=List[models.Message])
+@router.post("/")
 def ask(
     request: models.AskAssistant,
     session: Session = Depends(get_session),
     current_user: models.User = Depends(get_current_user),
-) -> List[models.Message]:
+):
     if request.conv_id is None:
         conv = models.ConversationCreate(user_id=current_user.user_id)
         current_conv = conversation.create(conv, session)
         request.conv_id = current_conv.conversation_id
-    response = ask_ai(request.query)
+    msgs = [
+        conv.messages
+        for conv in current_user.convs
+        if conv.conversation_id == request.conv_id
+    ]
+    response = ask_ai(request.query, msgs[0])
     msg = models.MessageCreate(
         human_question=request.query,
         ai_response=response,
@@ -28,7 +33,7 @@ def ask(
     )
     message.create(msg, session)
 
-    return session.get(models.Conversation, request.conv_id).messages
+    return response
 
 
 @router.get("/convs", response_model=List[models.Conversation])
@@ -40,10 +45,12 @@ def get_convs(
 
 @router.get("/messages", response_model=List[models.Message])
 def get_msgs(
-    id: int,
+    conv_id: int,
     current_user: models.User = Depends(get_current_user),
 ) -> List[models.Message]:
-    msgs = [conv.messages for conv in current_user.convs if conv.conversation_id == id]
+    msgs = [
+        conv.messages for conv in current_user.convs if conv.conversation_id == conv_id
+    ]
     return msgs[0]
 
 

@@ -14,6 +14,8 @@ def create(issue: models.IssueCreate, session: Session):
     issue_db = models.Issue.model_validate(issue)
     session.add(issue_db)
     session.commit()
+    session.refresh(issue_db)
+    return issue_db.issue_id
 
 
 def update(issue: models.Issue, session: Session) -> models.Issue | None:

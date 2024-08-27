@@ -3,3 +3,9 @@ sqlmodel
 passlib[bcrypt]
 pyjwt
 requests
+langchain-core
+langchain-community
+langchain-chroma>=0.1.2
+langchain-nvidia-ai-endpoints
+langsmith
+python-dotenv
