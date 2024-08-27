@@ -18,7 +18,6 @@ dotenv.load_dotenv()
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
 os.environ["NVIDIA_API_KEY"] = os.getenv("NVIDIA_API_KEY")
-LANGCHAIN_PROJECT = "OCP Assistant"
 LANGCHAIN_ENDPOINT = "https://api.smith.langchain.com"
 
 MODEL_NAME = "meta/llama-3.1-70b-instruct"
