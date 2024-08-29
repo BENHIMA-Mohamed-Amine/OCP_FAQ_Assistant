@@ -7,8 +7,10 @@ import { SignUp } from "./pages/SignUp";
 import { LogIn } from "./pages/LogIn";
 import { EditProfile } from "./pages/EditProfile";
 import { Issues } from "./pages/Issues";
-import "./index.css";
 import { Users } from "./pages/Users";
+import { AuthProvider } from "./context/AuthProvider";
+import "./index.css";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +44,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

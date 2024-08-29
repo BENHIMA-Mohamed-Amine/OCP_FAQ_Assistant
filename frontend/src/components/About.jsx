@@ -3,10 +3,13 @@ import { Button } from "./Button";
 
 export const About = () => {
   return (
-    <section className="flex flex-col justify-items-start justify-between md:flex-row my-5 md:my-10">
+    <section
+      id="about"
+      className="flex flex-col justify-items-start justify-between md:flex-row my-5 md:my-10"
+    >
       <div className="flex flex-col justify-between items-start gap-6">
         <h1 className="text-base md:text-2xl">About Us</h1>
-        <p className="pt-[-20px] w-5/6 leading-8 text-justify text-sm md:text-base">
+        <p className="pt-[-20px] w-5/6 leading-8 text-left md:text-justify text-sm md:text-base">
           Founded in 1920, OCP Groupe began with phosphate mining in Morocco.
           Today, we encompass the full cycle of plant nutrition, including
           mining, processing, and distributing a diverse range of fertilizers,

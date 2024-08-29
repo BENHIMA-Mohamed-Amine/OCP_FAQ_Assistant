@@ -7,8 +7,8 @@ import { About } from "../components/About";
 export const Landing = () => {
   return (
     <div>
-      <div className="w-4/6  mx-auto">
-        <GuestNavBar />
+      <div className="p-4 md:p-0 w-full md:w-4/6  mx-auto">
+        <GuestNavBar currentPage={"landing"} />
         <Main />
         <About />
       </div>

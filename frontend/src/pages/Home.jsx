@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import NavBar from "../components/NavBar";
 import { Chat } from "../components/Chat";
+import AuthContext from "../context/AuthProvider";
 
 export default function Home() {
+  const auth = useContext(AuthContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const location = useLocation();
+  const { accessToken, tokenType } = location.state || {};
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

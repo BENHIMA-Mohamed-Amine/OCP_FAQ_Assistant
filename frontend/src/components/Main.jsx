@@ -3,10 +3,13 @@ import { Button } from "./Button";
 
 export const Main = () => {
   return (
-    <main className="flex flex-col justify-between md:flex-row my-5 md:my-10">
+    <main
+      id="main"
+      className="flex flex-col justify-between md:flex-row my-5 md:my-10"
+    >
       <div className="flex flex-col justify-between items-start gap-6">
         <h1 className="text-base md:text-2xl">OCP Group Assistant</h1>
-        <p className="pt-[-20px] w-5/6 leading-8 text-justify text-sm md:text-base">
+        <p className="pt-[-20px] w-5/6 leading-8 text-left md:text-justify text-sm md:text-base">
           We are delighted to introduce you to your innovative chat-bot,
           specially designed to provide you with seamless support and
           solutions.Feel free to reach out with any questions or problems, and
