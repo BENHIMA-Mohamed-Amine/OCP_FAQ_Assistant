@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import SideBar from "../components/SideBar";
 import NavBar from "../components/NavBar";
 import { Chat } from "../components/Chat";
 import useAuth from "../hooks/useAuth";
+import { ConvIdProvider } from "../context/ConvIdProvider";
 
 export default function Home() {
   const { auth } = useAuth();
@@ -44,17 +44,20 @@ export default function Home() {
   }, [isSidebarOpen]);
 
   return (
-    <div className="layout h-dvh">
-      {isSidebarOpen && <SideBar toggleSidebar={toggleSidebar} />}
-      <div className="flex-1 main">
-        <NavBar
-          role={auth.role}
-          currentPage="assistant"
-          toggleSidebar={toggleSidebar}
-          isSidebarOpen={isSidebarOpen}
-        />
-        <Chat />
+    <ConvIdProvider>
+      <div className="layout h-dvh">
+        {isSidebarOpen && <SideBar toggleSidebar={toggleSidebar} />}
+
+        <div className="flex-1 main">
+          <NavBar
+            role={auth.role}
+            currentPage="assistant"
+            toggleSidebar={toggleSidebar}
+            isSidebarOpen={isSidebarOpen}
+          />
+          <Chat />
+        </div>
       </div>
-    </div>
+    </ConvIdProvider>
   );
 }

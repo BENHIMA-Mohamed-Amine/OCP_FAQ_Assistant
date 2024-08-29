@@ -37,8 +37,8 @@ class MessageBase(SQLModel):
     Base model for message
     """
 
-    human_question: str
-    ai_response: str
+    human: str
+    ai: str
 
 
 class MessageCreate(MessageBase):
@@ -120,3 +120,9 @@ class TokenData(SQLModel):
 class AskAssistant(SQLModel):
     query: str
     conv_id: int | None = None
+
+
+class AssistantResponse(SQLModel):
+    conv_id: int
+    response: str
+    msg_id: int

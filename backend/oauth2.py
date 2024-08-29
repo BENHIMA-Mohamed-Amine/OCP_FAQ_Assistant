@@ -20,6 +20,6 @@ def get_current_user(
     )
     user = JWTtoken.verify_token(token, credentials_exception)
     user = u.get_user_by_email(user.email, session)
-    if user is None:
+    if user == None:
         raise credentials_exception
     return user

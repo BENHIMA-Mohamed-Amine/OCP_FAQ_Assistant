@@ -53,8 +53,8 @@ def get_vector_store():
 def get_chat_history(messages: List[models.Message]):
     chat_history = []
     for msg in messages:
-        chat_history.append(HumanMessage(content=msg.human_question))
-        chat_history.append(AIMessage(content=msg.ai_response))
+        chat_history.append(HumanMessage(content=msg.human))
+        chat_history.append(AIMessage(content=msg.ai))
     return chat_history
 
 

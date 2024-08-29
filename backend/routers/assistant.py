@@ -27,13 +27,15 @@ def ask(
     ]
     response = ask_ai(request.query, msgs[0])
     msg = models.MessageCreate(
-        human_question=request.query,
-        ai_response=response,
+        human=request.query,
+        ai=response,
         conv_id=request.conv_id,
     )
-    message.create(msg, session)
+    msg_db = message.create(msg, session)
 
-    return response
+    return models.AssistantResponse(
+        conv_id=request.conv_id, response=response, msg_id=msg_db.msg_id
+    )
 
 
 @router.get("/convs", response_model=List[models.Conversation])

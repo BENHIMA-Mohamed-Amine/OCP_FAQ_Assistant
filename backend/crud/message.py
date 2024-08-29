@@ -6,3 +6,5 @@ def create(msg: models.MessageCreate, session: Session):
     msg_db = models.Message.model_validate(msg)
     session.add(msg_db)
     session.commit()
+    session.refresh(msg_db)
+    return msg_db
