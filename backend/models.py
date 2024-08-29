@@ -109,6 +109,7 @@ class Issue(IssueBase, table=True):
 class Token(SQLModel):
     access_token: str
     token_type: str
+    role: str
 
 
 class TokenData(SQLModel):

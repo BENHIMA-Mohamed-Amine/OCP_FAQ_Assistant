@@ -84,7 +84,9 @@ def log_in(
         )
 
     access_token = JWTtoken.create_access_token({"sub": user_from_db.email})
-    return models.Token(access_token=access_token, token_type="bearer")
+    return models.Token(
+        access_token=access_token, token_type="bearer", role=user_from_db.role.name
+    )
 
 
 @router.put("/update", status_code=status.HTTP_200_OK)
