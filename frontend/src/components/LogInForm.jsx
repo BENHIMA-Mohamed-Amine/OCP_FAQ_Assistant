@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { OrComponent } from "./OrComponent";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import AuthContext from "../context/AuthProvider";
+import useAuth from "../hooks/useAuth";
 
 const LOGIN_URL = "/user/login ";
 
 export const LogInForm = () => {
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate("/");
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
@@ -34,13 +36,14 @@ export const LogInForm = () => {
         setAuth({
           email,
           password,
-          accessToken: res.data.access_tokem,
+          lastName: res.data.last_name,
+          accessToken: res.data.access_token,
           tokenType: res.data.token_type,
           role: res.data.role,
         });
         setIsSucces(true);
         setTimeout(() => {
-          navigate("/");
+          navigate(from, { replace: true });
         }, 1000);
       })
       .catch((err) => {

@@ -1,20 +1,39 @@
 import React, { useEffect, useState } from "react";
+import useAuth from "../hooks/useAuth";
+import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
+
+const GET_CONVS_URL = "/assistant/convs";
 
 const SideBar = (props) => {
-  const [id] = useState(1); // id is static in this example
+  const navigate = useNavigate();
+  const { auth } = useAuth();
+  const [convs, setConvs] = useState({});
+  const [id] = useState(1);
   const [title, setTitle] = useState("hello world");
   const [newTitle, setNewTitle] = useState("");
   const [isEditTitleClicked, setIsEditTitleClicked] = useState(false);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-
-  function delayedFunction() {
-    console.log("This message is displayed after a 3-second delay.");
-  }
   useEffect(() => {
     setIsDataLoaded(false);
+    axios
+      .get(GET_CONVS_URL, {
+        headers: {
+          Authorization: `${auth.tokenType} ${auth.accessToken}`,
+        },
+      })
+      .then((res) => {
+        // response = res.data;
+        console.log(res.data);
+      })
+      .catch((err) => {
+        if (err.status === 401) {
+          navigate("/unauthorized");
+        }
+        console.log(err);
+      });
 
     const timer = setTimeout(() => {
-      delayedFunction();
       setIsDataLoaded(true);
     }, 1000);
     return () => clearTimeout(timer);

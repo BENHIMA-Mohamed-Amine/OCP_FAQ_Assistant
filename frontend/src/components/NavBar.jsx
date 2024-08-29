@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import useAuth from "../hooks/useAuth";
 
 export default function NavBar(props) {
   const { role, currentPage, toggleSidebar, isSidebarOpen } = props;
+  const { auth, logout } = useAuth();
 
   const isActive = (page) =>
     currentPage === page ? "text-custom-green" : "text-main";
@@ -30,7 +32,7 @@ export default function NavBar(props) {
           />
         </Link>
       </div>
-      <ul className="hidden space-x-6 md:flex">
+      <ul className="hidden space-x-20 md:flex">
         {role === "admin" ? (
           <>
             <li>
@@ -43,7 +45,7 @@ export default function NavBar(props) {
             </li>
             <li>
               <Link
-                to="/"
+                to="/issues"
                 className={`hover:text-custom-green ${isActive("issues")}`}
               >
                 Issues
@@ -51,7 +53,7 @@ export default function NavBar(props) {
             </li>
             <li>
               <Link
-                to="/"
+                to="/users"
                 className={`hover:text-custom-green ${isActive("users")}`}
               >
                 Users
@@ -59,7 +61,7 @@ export default function NavBar(props) {
             </li>
             <li>
               <Link
-                to="/"
+                to="/edit-profile"
                 className={`hover:text-custom-green ${isActive("profile")}`}
               >
                 Profile
@@ -70,7 +72,7 @@ export default function NavBar(props) {
           <>
             <li>
               <Link
-                to="/assistant"
+                to="/"
                 className={`hover:text-custom-green ${isActive("assistant")}`}
               >
                 Assistant
@@ -78,7 +80,7 @@ export default function NavBar(props) {
             </li>
             <li>
               <Link
-                to="/profile"
+                to="/edit-profile"
                 className={`hover:text-custom-green ${isActive("profile")}`}
               >
                 Profile
@@ -95,10 +97,9 @@ export default function NavBar(props) {
         >
           Log out
         </button>
-        {/* Confirm Logout Modal */}
         <div
           id="logout-modal"
-          tabindex="-1"
+          tabIndex="-1"
           className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
         >
           <div className="relative p-4 w-full max-w-md max-h-full">
@@ -117,9 +118,9 @@ export default function NavBar(props) {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
@@ -135,9 +136,9 @@ export default function NavBar(props) {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>
@@ -145,6 +146,7 @@ export default function NavBar(props) {
                   Are you sure you want to log out from the app?
                 </h3>
                 <button
+                  onClick={logout}
                   data-modal-hide="logout-modal"
                   type="button"
                   className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
@@ -162,13 +164,14 @@ export default function NavBar(props) {
             </div>
           </div>
         </div>
+
         <span className="hidden md:inline-block border-custom-green border-[2px] bg-custom-green text-white px-4 py-[10px] rounded-lg text-center hover:bg-[#F6F6F6] hover:text-main">
-          Welcome, Benhima
+          Welcome, {auth.lastName}
         </span>
       </div>
 
       <button
-        data-collapse-toggle="navbar-default"
+        // data-collapse-toggle="navbar-default"
         type="button"
         className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-main rounded-lg md:hidden hover:bg-custom-green focus:outline-none focus:ring-2 focus:ring-gray-200"
         aria-controls="navbar-default"

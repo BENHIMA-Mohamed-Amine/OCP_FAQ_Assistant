@@ -9,12 +9,22 @@ import { EditProfile } from "./pages/EditProfile";
 import { Issues } from "./pages/Issues";
 import { Users } from "./pages/Users";
 import { AuthProvider } from "./context/AuthProvider";
+import RequireAuth from "./components/RequireAuth";
 import "./index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <RequireAuth allowedRoles={["admin", "user"]} />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "edit-profile", element: <EditProfile /> },
+      {
+        path: "users",
+        element: <RequireAuth allowedRoles={["admin"]} />,
+        children: [{ index: true, element: <Users /> }],
+      },
+    ],
   },
   {
     path: "/landing",
@@ -29,16 +39,17 @@ const router = createBrowserRouter([
     element: <LogIn />,
   },
   {
-    path: "/edit-profile",
-    element: <EditProfile />,
-  },
-  {
     path: "/issues",
-    element: <Issues />,
+    element: <RequireAuth allowedRoles={["admin"]} />,
+    children: [{ index: true, element: <Issues /> }],
   },
   {
-    path: "/users",
-    element: <Users />,
+    path: "/unauthorized",
+    element: <div>Unauthorized</div>,
+  },
+  {
+    path: "*",
+    element: <div>Not Found</div>,
   },
 ]);
 

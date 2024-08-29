@@ -18,10 +18,6 @@ async def lifespan(app: FastAPI, session: Session = Depends(database.get_session
 
 
 app = FastAPI(lifespan=lifespan)
-app.include_router(user.router)
-app.include_router(issue.router)
-app.include_router(assistant.router)
-
 origins = ["http://localhost:5173"]
 
 app.add_middleware(
@@ -31,3 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.include_router(user.router)
+app.include_router(issue.router)
+app.include_router(assistant.router)

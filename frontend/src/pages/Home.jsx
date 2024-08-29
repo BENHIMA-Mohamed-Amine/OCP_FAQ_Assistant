@@ -3,13 +3,11 @@ import { useLocation } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import NavBar from "../components/NavBar";
 import { Chat } from "../components/Chat";
-import AuthContext from "../context/AuthProvider";
+import useAuth from "../hooks/useAuth";
 
 export default function Home() {
-  const auth = useContext(AuthContext);
+  const { auth } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const location = useLocation();
-  const { accessToken, tokenType } = location.state || {};
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -50,7 +48,7 @@ export default function Home() {
       {isSidebarOpen && <SideBar toggleSidebar={toggleSidebar} />}
       <div className="flex-1 main">
         <NavBar
-          role="admin"
+          role={auth.role}
           currentPage="assistant"
           toggleSidebar={toggleSidebar}
           isSidebarOpen={isSidebarOpen}

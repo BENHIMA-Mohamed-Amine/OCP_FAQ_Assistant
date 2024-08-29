@@ -18,7 +18,6 @@ def get_current_user(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    token = token.split(" ")[1]
     user = JWTtoken.verify_token(token, credentials_exception)
     user = u.get_user_by_email(user.email, session)
     if user is None:

@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { OrComponent } from "./OrComponent";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
-import AuthContext from "../context/AuthProvider";
+import useAuth from "../hooks/useAuth";
 
 const REGISTER_URL = "/user/register";
 
 export const Register = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -58,6 +58,7 @@ export const Register = () => {
         setAuth({
           email,
           password,
+          lastName: res.data.last_name,
           accessToken: res.data.access_token,
           tokenType: res.data.token_type,
           role: res.data.role,
