@@ -40,10 +40,11 @@ export const LogInForm = () => {
           accessToken: res.data.access_token,
           tokenType: res.data.token_type,
           role: res.data.role,
+          userId: res.data.user_id,
         });
         setIsSucces(true);
         setTimeout(() => {
-          navigate(from, { replace: true });
+          navigate("/");
         }, 1000);
       })
       .catch((err) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { EditProfileForm } from "../components/EditProfileForm";
 import { FooterComponent } from "../components/Footer";
 import NavBar from "../components/NavBar";

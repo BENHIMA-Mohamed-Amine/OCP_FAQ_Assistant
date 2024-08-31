@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: <RequireAuth allowedRoles={["admin", "user"]} />,
     children: [
       { index: true, element: <Home /> },
-      { path: "edit-profile", element: <EditProfile /> },
+      { path: "edit-profile/:id", element: <EditProfile /> },
       {
         path: "users",
         element: <RequireAuth allowedRoles={["admin"]} />,
@@ -46,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "/unauthorized",
     element: <div>Unauthorized</div>,
+  },
+  {
+    path: "/notfound",
+    element: <div>Not Found</div>,
   },
   {
     path: "*",

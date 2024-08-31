@@ -89,6 +89,7 @@ def log_in(
         token_type="bearer",
         role=user_from_db.role.name,
         last_name=user_from_db.last_name,
+        user_id=user_from_db.user_id,
     )
 
 
@@ -99,12 +100,30 @@ def update(
     current_user: models.User = Depends(get_current_user),
 ):
     try:
-        return user.edit(request, session)
+        plain_pswd = request.password
+        request.password = hashing.hash_pswd(request.password)
+        user_db = user.edit(request, session)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"there is no user with this email: {request.email}",
+            detail=f"there is no user with this id: {request.user_id}",
         )
+    url = "http://127.0.0.1:8000/user/login"
+    payload = {"username": request.email, "password": plain_pswd}
+    response = requests.post(url=url, data=payload)
+    if response.status_code != status.HTTP_200_OK:
+        raise HTTPException(
+            status_code=response.status_code,
+            detail=f"request failed to log in, status code {response.status_code} try to log in.",
+        )
+    return {
+        "last_name": user_db.last_name,
+        "first_name": user_db.first_name,
+        "email": user_db.email,
+        "role": user_db.role,
+        "access_token": response.json()["access_token"],
+        "token_type": "bearer",
+    }
 
 
 @router.delete("/delete/{id}")

@@ -62,9 +62,10 @@ export const Register = () => {
           accessToken: res.data.access_token,
           tokenType: res.data.token_type,
           role: res.data.role,
+          userId: res.data.user_id,
         });
         setTimeout(() => {
-          navigate("/", {});
+          navigate("/");
         }, 1000);
       })
       .catch((err) => {

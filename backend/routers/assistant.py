@@ -25,6 +25,7 @@ def ask(
         for conv in current_user.convs
         if conv.conversation_id == request.conv_id
     ]
+
     response = ask_ai(request.query, msgs[0])
     msg = models.MessageCreate(
         human=request.query,
@@ -45,14 +46,16 @@ def get_convs(
     return current_user.convs
 
 
-@router.get("/messages", response_model=List[models.Message])
+@router.get("/messages", response_model=List[models.Message] | List)
 def get_msgs(
     conv_id: int,
     current_user: models.User = Depends(get_current_user),
-) -> List[models.Message]:
+) -> List[models.Message] | List:
     msgs = [
         conv.messages for conv in current_user.convs if conv.conversation_id == conv_id
     ]
+    if len(msgs) == 0:
+        return []
     return msgs[0]
 
 

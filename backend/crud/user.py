@@ -35,9 +35,9 @@ def verify_user(credentials: models.UserLogIn, session: Session):
 
 
 def edit(request: models.User, session: Session) -> models.User:
-    user = get_user_by_email(request.email, session)
+    user = get_user_by_id(request.user_id, session)
     if user is None:
-        raise Exception(f"there is no user with this email: {request.email}")
+        raise Exception(f"there is no user with this id: {request.user_id}")
     user.email = request.email
     user.first_name = request.first_name
     user.last_name = request.last_name

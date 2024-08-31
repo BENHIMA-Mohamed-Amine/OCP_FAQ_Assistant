@@ -111,6 +111,7 @@ class Token(SQLModel):
     token_type: str
     last_name: str
     role: str
+    user_id: int
 
 
 class TokenData(SQLModel):
