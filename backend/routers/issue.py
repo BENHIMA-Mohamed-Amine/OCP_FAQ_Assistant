@@ -8,76 +8,76 @@ from typing import List
 from ..ai_service import store_issue_index, delete_issue
 
 
-faq_list = [
-    {
-        "question": "I forgot my password.",
-        "solution": "Would you like to request a password reset?",
-    },
-    {
-        "question": "I'm having trouble connecting my computer to the internet.",
-        "solution": (
-            "This might be an internet connection issue. Would you like guidance to resolve this? "
-            "1. Check the network cable connection. "
-            "2. Verify the connection icon status. "
-            "3. Check the web connection settings."
-        ),
-    },
-    {
-        "question": "My computer won't start.",
-        "solution": (
-            "Please check the power cable. "
-            "Can you hear any beeping sounds when trying to start?"
-        ),
-    },
-    {
-        "question": "The printer is not working.",
-        "solution": (
-            "1. Is the printer turned on and properly connected? "
-            "2. Check if there is any paper jam. "
-            "3. Verify if the printer driver is installed correctly."
-        ),
-    },
-    {
-        "question": "I can't access my email.",
-        "solution": (
-            "1. Check if you are connected to the internet. "
-            "2. Verify that your email credentials are correct. "
-            "3. Ensure that your email client is configured properly."
-        ),
-    },
-    {
-        "question": "My screen is frozen.",
-        "solution": (
-            "1. Try pressing 'Ctrl + Alt + Delete' to open the Task Manager. "
-            "2. End any unresponsive tasks. "
-            "3. If that doesn't work, restart your computer."
-        ),
-    },
-    {
-        "question": "The software is not responding.",
-        "solution": (
-            "1. Close the software and reopen it. "
-            "2. Check for any available updates for the software. "
-            "3. Restart your computer if the issue persists."
-        ),
-    },
-    {
-        "question": "I can't connect to the shared drive.",
-        "solution": (
-            "1. Verify your network connection. "
-            "2. Ensure you have the correct permissions to access the shared drive. "
-            "3. Try mapping the network drive again."
-        ),
-    },
-    {
-        "question": "My computer is running very slow.",
-        "solution": (
-            "1. Check for any background processes that are using high resources. "
-            "2. Run a virus scan to ensure there is no malware. "
-            "3. Consider clearing temporary files and restarting your computer."
-        ),
-    },
-]
+# faq_list = [
+#     {
+#         "question": "I forgot my password.",
+#         "solution": "Would you like to request a password reset?",
+#     },
+#     {
+#         "question": "I'm having trouble connecting my computer to the internet.",
+#         "solution": (
+#             "This might be an internet connection issue. Would you like guidance to resolve this? "
+#             "1. Check the network cable connection. "
+#             "2. Verify the connection icon status. "
+#             "3. Check the web connection settings."
+#         ),
+#     },
+#     {
+#         "question": "My computer won't start.",
+#         "solution": (
+#             "Please check the power cable. "
+#             "Can you hear any beeping sounds when trying to start?"
+#         ),
+#     },
+#     {
+#         "question": "The printer is not working.",
+#         "solution": (
+#             "1. Is the printer turned on and properly connected? "
+#             "2. Check if there is any paper jam. "
+#             "3. Verify if the printer driver is installed correctly."
+#         ),
+#     },
+#     {
+#         "question": "I can't access my email.",
+#         "solution": (
+#             "1. Check if you are connected to the internet. "
+#             "2. Verify that your email credentials are correct. "
+#             "3. Ensure that your email client is configured properly."
+#         ),
+#     },
+#     {
+#         "question": "My screen is frozen.",
+#         "solution": (
+#             "1. Try pressing 'Ctrl + Alt + Delete' to open the Task Manager. "
+#             "2. End any unresponsive tasks. "
+#             "3. If that doesn't work, restart your computer."
+#         ),
+#     },
+#     {
+#         "question": "The software is not responding.",
+#         "solution": (
+#             "1. Close the software and reopen it. "
+#             "2. Check for any available updates for the software. "
+#             "3. Restart your computer if the issue persists."
+#         ),
+#     },
+#     {
+#         "question": "I can't connect to the shared drive.",
+#         "solution": (
+#             "1. Verify your network connection. "
+#             "2. Ensure you have the correct permissions to access the shared drive. "
+#             "3. Try mapping the network drive again."
+#         ),
+#     },
+#     {
+#         "question": "My computer is running very slow.",
+#         "solution": (
+#             "1. Check for any background processes that are using high resources. "
+#             "2. Run a virus scan to ensure there is no malware. "
+#             "3. Consider clearing temporary files and restarting your computer."
+#         ),
+#     },
+# ]
 
 
 router = APIRouter(prefix="/issue", tags=["issue"])

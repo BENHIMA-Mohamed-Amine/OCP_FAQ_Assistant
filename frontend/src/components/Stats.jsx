@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../api/axios";
+import useAuth from "../hooks/useAuth";
+
+const GET_USER_STATS = "user/total_users";
 
 export const Stats = () => {
+  const { auth, setAuth } = useAuth();
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalAdmins, setTotalAdmins] = useState(0);
+  const [totalIssues, setTotalIssues] = useState(0);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(GET_USER_STATS, {
+  //       headers: {
+  //         Authorization: `${auth.tokenType} ${auth.accessToken}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response);
+  //     });
+  // }, []);
   return (
     <div className="my-5">
       <div className="">

@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from . import database
 from . import models
 from .routers import user, issue, assistant
+from .ai_service import load_data_and_index
 
 
 @asynccontextmanager
@@ -14,6 +15,7 @@ async def lifespan(app: FastAPI, session: Session = Depends(database.get_session
     It creates the tables in the db if they aren't already exist
     """
     database.init_db()
+    load_data_and_index()
     yield
 
 

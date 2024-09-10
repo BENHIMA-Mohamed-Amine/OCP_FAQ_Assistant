@@ -19,23 +19,23 @@ export function FooterComponent() {
           className="text-white text-[9px] md:text-sm flex flex-col items-center md:flex-row pb-1 md:pb-0"
         />
         <FooterLinkGroup>
-          <FooterLink href="#">
+          <FooterLink href="https://www.linkedin.com/in/mohamed-amine-benhima/">
             <img
-              src="./src/assets/linkedin.png"
+              src="/src/assets/linkedin.png"
               alt="linkedin image"
               className="h-[18px] w-[18px]"
             />
           </FooterLink>
-          <FooterLink href="#">
+          <FooterLink href="mailto:benhima.mohamed.amine@gmail.com">
             <img
-              src="./src/assets/mail.png"
+              src="/src/assets/mail.png"
               alt="emil image"
               className="h-[18px] w-[18px]"
             />
           </FooterLink>
-          <FooterLink href="#">
+          <FooterLink href="https://github.com/BENHIMA-Mohamed-Amine">
             <img
-              src="./src/assets/github.png"
+              src="/src/assets/github.png"
               alt="github image"
               className="h-[18px] w-[18px]"
             />

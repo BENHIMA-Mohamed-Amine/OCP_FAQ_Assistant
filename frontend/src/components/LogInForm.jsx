@@ -111,22 +111,6 @@ export const LogInForm = () => {
       <div className="mb-8 text-main text-[22px] md:text[38px] font-medium">
         <h1>Log In</h1>
       </div>
-      <div className="flex w-ful">
-        <button className="w-full px-2 py-2 border items-center flex gap-2 border-white rounded-lg text-main hover:border-custom-green hover:shadow transition duration-150">
-          <img
-            className="w-6 h-6"
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            loading="lazy"
-            alt="google logo"
-          />
-          <span className="flex w-full justify-center text-sm">
-            Log In with Google
-          </span>
-        </button>
-      </div>
-      <div>
-        <OrComponent />
-      </div>
       <div className="mb-6">
         <label
           htmlFor="email"

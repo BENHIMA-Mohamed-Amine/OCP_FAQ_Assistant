@@ -91,8 +91,10 @@ export default function NavBar(props) {
       </ul>
       <div className="flex items-center space-x-4">
         <button
+          id="logout-button"
           data-modal-toggle="logout-modal"
           data-modal-target="logout-modal"
+          type="button"
           className="max-h-[20px] hover:text-custom-green"
         >
           Log out

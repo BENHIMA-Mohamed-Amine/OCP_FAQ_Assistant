@@ -7,6 +7,7 @@ from langchain.chains.history_aware_retriever import create_history_aware_retrie
 from langchain.chains.retrieval import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings, ChatNVIDIA
+from langchain_community.document_loaders import TextLoader
 from langsmith import traceable
 from operator import itemgetter
 from . import models
@@ -114,3 +115,10 @@ def store_issue_index(issue: models.IssueCreate, issue_id):
 def delete_issue(id):
     vector_db = get_vector_store()
     vector_db.delete([str(id)])
+
+
+def load_data_and_index():
+    loader = TextLoader("./data.txt")
+    docs = loader.load_and_split()
+    vector_db = get_vector_store()
+    vector_db.add_documents(docs)

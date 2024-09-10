@@ -130,22 +130,6 @@ export const Register = () => {
       <div className="mb-8 text-main text-[22px] md:text[30px] font-thin">
         <h1>Create an Account</h1>
       </div>
-      <div className="flex w-ful mb-3">
-        <button className="w-full pl-1 py-2 border items-center flex gap-2 border-white rounded-lg text-main hover:border-custom-green hover:shadow transition duration-150">
-          <img
-            className="w-6 h-6"
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            loading="lazy"
-            alt="google logo"
-          />
-          <span className="flex w-full justify-center text-sm">
-            Sign In with Google
-          </span>
-        </button>
-      </div>
-      <div className="mb-3">
-        <OrComponent />
-      </div>
       <form onSubmit={hansleSubmitForm}>
         <div className="grid gap-6 mb-6 md:grid-cols-2">
           <div>

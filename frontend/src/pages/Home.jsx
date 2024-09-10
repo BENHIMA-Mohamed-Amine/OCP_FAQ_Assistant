@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import { Chat } from "../components/Chat";
 import useAuth from "../hooks/useAuth";
 import { ConvIdProvider } from "../context/ConvIdProvider";
+import { CookiesProvider } from "react-cookie";
 
 export default function Home() {
   const { auth } = useAuth();
@@ -44,7 +45,7 @@ export default function Home() {
   }, [isSidebarOpen]);
 
   return (
-    <ConvIdProvider>
+    <CookiesProvider>
       <div className="layout h-dvh">
         {isSidebarOpen && <SideBar toggleSidebar={toggleSidebar} />}
 
@@ -58,6 +59,6 @@ export default function Home() {
           <Chat />
         </div>
       </div>
-    </ConvIdProvider>
+    </CookiesProvider>
   );
 }

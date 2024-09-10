@@ -8,7 +8,7 @@ const RequireAuth = ({ allowedRoles }) => {
 
   if (!auth || Object.keys(auth).length === 0) {
     // If auth is empty, redirect to login
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/landing" state={{ from: location }} replace />;
   }
 
   if (allowedRoles.includes(auth?.role)) {

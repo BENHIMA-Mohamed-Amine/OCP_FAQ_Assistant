@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { MessageContainer } from "./MessageContainer";
-import ConvIdContext from "../context/ConvIdProvider";
 import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const ASK_ASSISTANT = "/assistant";
 const GET_CHAT_HISTORY = "assistant/messages";
@@ -12,11 +12,11 @@ export const Chat = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const textareaRef = useRef(null);
-  const { convIdContext, setConvIdContext } = useContext(ConvIdContext);
   const { auth } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [cookies, setCookie] = useCookies(["convId"]);
 
   // handle textarea size
   useEffect(() => {
@@ -35,16 +35,16 @@ export const Chat = () => {
   };
   // set the messages to null if the conv id is null
   useEffect(() => {
-    if (convIdContext == null) {
+    if (cookies.convId == null) {
       setMessages([]);
     }
-  }, [convIdContext]);
+  }, [cookies.convId]);
   // load the messages when the conv id is changed is loaded if the conversation id is not null
   useEffect(() => {
-    if (convIdContext) {
+    if (cookies.convId) {
       setIsLoading(true);
       axios
-        .get(`${GET_CHAT_HISTORY}?conv_id=${convIdContext}`, {
+        .get(`${GET_CHAT_HISTORY}?conv_id=${cookies.convId}`, {
           headers: {
             Authorization: `${auth.tokenType} ${auth.accessToken}`,
           },
@@ -61,7 +61,7 @@ export const Chat = () => {
           }
         });
     }
-  }, [convIdContext]);
+  }, [cookies.convId]);
   // ask the assistant
   const handleAskAssistant = (e) => {
     e.preventDefault();
@@ -71,7 +71,7 @@ export const Chat = () => {
         ASK_ASSISTANT,
         {
           query: message,
-          conv_id: convIdContext,
+          conv_id: cookies.convId,
         },
         {
           headers: {
@@ -88,7 +88,7 @@ export const Chat = () => {
         };
         setMessages((prevMessages) => [...prevMessages, newMessage]);
         setMessage("");
-        setConvIdContext(res.data.conv_id);
+        setCookie("convId", res.data.conv_id);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -134,6 +134,18 @@ export const Chat = () => {
             messages.map((msg) => (
               <MessageContainer key={msg.msg_id} msgs={msg} />
             ))}
+          {!isLoading && messages.length == 0 && (
+            <div className="flex flex-col items-center justify-evenly h-full">
+              <div className="flex flex-col items-center">
+                <img
+                  src="/src/assets/OCP_logolg.png"
+                  alt="ocp logo"
+                  className="h-[113px] w-[269px]"
+                />
+                <p className="text-xl">Welcom to OCP Groupe Assistant</p>
+              </div>
+            </div>
+          )}
         </div>
         <form
           onSubmit={handleAskAssistant}

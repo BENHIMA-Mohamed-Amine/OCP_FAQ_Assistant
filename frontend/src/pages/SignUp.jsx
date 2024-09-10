@@ -6,7 +6,7 @@ import { Register } from "../components/Register";
 export const SignUp = () => {
   return (
     <div>
-      <div className="w-11/12 md:w-5/6 lg:w-4/6 mx-auto mb-3 md:mb-0">
+      <div className="w-11/12 md:w-5/6 lg:w-4/6 mx-auto mb-3 md:mb-0 h-[calc(100vh-67px)]">
         <GuestNavBar currentPage={"signup"} />
         <Register />
       </div>

@@ -2,13 +2,15 @@ import React, { useEffect, useState, useContext } from "react";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
-import ConvIdContext from "../context/ConvIdProvider";
+import { useCookies } from "react-cookie";
 
 const GET_CONVS_URL = "/assistant/convs";
+const DELETE_CONV = "/assistant/delete";
+const EDIT_TITLE = "/assistant/title";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
-  const { setConvIdContext } = useContext(ConvIdContext);
+  const [cookies, setCookie] = useCookies(["convId"]);
   const { auth } = useAuth();
   const [convs, setConvs] = useState([]);
   const [id] = useState(1);
@@ -18,8 +20,7 @@ const SideBar = (props) => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  useEffect(() => {
-    setIsDataLoaded(false);
+  function getAllConvs() {
     axios
       .get(GET_CONVS_URL, {
         headers: {
@@ -36,7 +37,11 @@ const SideBar = (props) => {
         }
         console.log(err);
       });
-  }, []);
+  }
+  useEffect(() => {
+    setIsDataLoaded(false);
+    getAllConvs();
+  }, [cookies.convId]);
 
   const EDIT_TITLE_ICON = "./src/assets/edit-2.svg";
   const DELETE_CONV_ICON = "./src/assets/trash.svg";
@@ -54,6 +59,29 @@ const SideBar = (props) => {
 
   const handleConfirmNewTitle = () => {
     if (isEditing !== null) {
+      axios
+        .put(
+          EDIT_TITLE,
+          {
+            conversation_id: isEditing,
+            user_id: auth.user_id,
+            title: newTitle,
+          },
+          {
+            headers: {
+              Authorization: `${auth.tokenType} ${auth.accessToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          // Handle success
+          console.log("Success:", response.data);
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error:", error.response?.data || error.message);
+        });
+
       setConvs((prevConvs) =>
         prevConvs.map((conv) =>
           conv.conversation_id === isEditing
@@ -70,7 +98,24 @@ const SideBar = (props) => {
     setNewTitle(e.target.value);
   };
 
-  const handleDeleteConv = (convId) => {};
+  const handleDeleteConv = (convId) => {
+    axios
+      .delete(`${DELETE_CONV}/${convId}`, {
+        headers: {
+          Authorization: `${auth.tokenType} ${auth.accessToken}`,
+        },
+      })
+      .then((response) => {
+        getAllConvs();
+        setCookie("convId", null);
+      })
+      .catch((error) => {
+        console.error(
+          "Error deleting conversation:",
+          error.response?.data || error.message
+        );
+      });
+  };
 
   return (
     <>
@@ -85,7 +130,7 @@ const SideBar = (props) => {
             />
           </button>
           <button
-            onClick={() => setConvIdContext(null)}
+            onClick={() => setCookie("convId", null)}
             className="flex justify-center items-center hover:bg-[hsl(0,0%,90%)] focus:outline-none rounded-md h-[30px] w-[30px]"
           >
             <img
@@ -102,7 +147,11 @@ const SideBar = (props) => {
                 convs.map((conv) => (
                   <li
                     key={conv.conversation_id}
-                    className="conv-title mb-3 h-9 hover:bg-[hsl(0,0%,90%)] rounded-md p-[8px]"
+                    className={`conv-title mb-3 h-9 hover:bg-[hsl(0,0%,90%)] rounded-md p-[8px] ${
+                      conv.conversation_id == cookies.convId
+                        ? "bg-[hsl(0,0%,90%)]"
+                        : ""
+                    }`}
                   >
                     {isEditing === conv.conversation_id ? (
                       <input
@@ -112,7 +161,12 @@ const SideBar = (props) => {
                         onChange={handleChangeTitle}
                       />
                     ) : (
-                      <span className="conv-text text-sm text-main truncate">
+                      <span
+                        onClick={() =>
+                          setCookie("convId", conv.conversation_id)
+                        }
+                        className="conv-text text-sm text-main truncate cursor-pointer"
+                      >
                         {conv.title}
                       </span>
                     )}
@@ -131,38 +185,112 @@ const SideBar = (props) => {
                             : () => handleClickEditButton(conv.conversation_id)
                         }
                       />
-                      <img
-                        src={
-                          isEditing === conv.conversation_id
-                            ? CONFIRM_NEW_TITLE_ICON
-                            : DELETE_CONV_ICON
-                        }
-                        id={
-                          isEditing === conv.conversation_id
-                            ? ""
-                            : "deleteButton"
-                        }
-                        data-modal-target={
-                          isEditing === conv.conversation_id
-                            ? ""
-                            : "deleteModal"
-                        }
-                        data-modal-toggle={
-                          isEditing === conv.conversation_id
-                            ? ""
-                            : "deleteModal"
-                        }
-                        alt="delete conversation"
-                        className="w-[14px] h-[14px] hover:cursor-pointer"
-                        onClick={
-                          isEditing === conv.conversation_id
-                            ? handleConfirmNewTitle
-                            : () => handleDeleteConv(conv.conversation_id)
-                        }
-                      />
+                      {isEditing === conv.conversation_id ? (
+                        <img
+                          src={CONFIRM_NEW_TITLE_ICON}
+                          className="w-[14px] h-[14px] hover:cursor-pointer"
+                          onClick={handleConfirmNewTitle}
+                        />
+                      ) : (
+                        <>
+                          {/* <button
+                            id="deleteButton"
+                            data-modal-target="deleteModal"
+                            data-modal-toggle="deleteModal"
+                            type="buttom"
+                            onClick={() =>
+                              handleDeleteConv(conv.conversation_id)
+                            }
+                          >
+                            <img
+                              src={DELETE_CONV_ICON}
+                              className="w-[14px] h-[14px] hover:cursor-pointer"
+                            />
+                          </button>
+                          <div
+                            id="deleteModal"
+                            tabIndex="-1"
+                            aria-hidden="true"
+                            data-modal-target="deleteModal"
+                            data-modal-toggle="deleteModal"
+                            className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
+                          >
+                            <div className="relative p-4 w-full max-w-md h-full md:h-auto">
+                              <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                <button
+                                  type="button"
+                                  className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                  data-modal-toggle="deleteModal"
+                                  data-modal-hide="deleteModal"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    className="w-5 h-5"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                      clipRule="evenodd"
+                                    ></path>
+                                  </svg>
+                                  <span className="sr-only">Close modal</span>
+                                </button>
+                                <svg
+                                  className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                  aria-hidden="true"
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                    clipRule="evenodd"
+                                  ></path>
+                                </svg>
+                                <p className="mb-4 text-gray-500 dark:text-gray-300">
+                                  Are you sure you want to delete this item?
+                                </p>
+                                <div className="flex justify-center items-center space-x-4">
+                                  <button
+                                    data-modal-toggle="deleteModal"
+                                    type="button"
+                                    className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                  >
+                                    No, cancel
+                                  </button>
+                                  <button
+                                    type="submit"
+                                    className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                  >
+                                    Yes, I'm sure
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div> */}
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleDeleteConv(conv.conversation_id)
+                            }
+                          >
+                            <img
+                              src={DELETE_CONV_ICON}
+                              className="w-[14px] h-[14px] hover:cursor-pointer"
+                            />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </li>
                 ))}
+              {isDataLoaded && convs.length == 0 && (
+                <p className="text-center text-sm">No Conversations</p>
+              )}
             </ul>
           </div>
         )}
@@ -192,70 +320,6 @@ const SideBar = (props) => {
             </div>
           </div>
         )}
-      </div>
-      <div
-        id="deleteModal"
-        tabIndex="-1"
-        aria-hidden="true"
-        data-modal-target="deleteModal"
-        data-modal-toggle="deleteModal"
-        className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
-      >
-        <div className="relative p-4 w-full max-w-md h-full md:h-auto">
-          <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-            <button
-              type="button"
-              className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="deleteModal"
-            >
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <span className="sr-only">Close modal</span>
-            </button>
-            <svg
-              className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-            <p className="mb-4 text-gray-500 dark:text-gray-300">
-              Are you sure you want to delete this item?
-            </p>
-            <div className="flex justify-center items-center space-x-4">
-              <button
-                data-modal-toggle="deleteModal"
-                type="button"
-                className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-              >
-                No, cancel
-              </button>
-              <button
-                type="submit"
-                className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
-              >
-                Yes, I'm sure
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

@@ -98,7 +98,7 @@ export const EditProfileForm = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
   return (
