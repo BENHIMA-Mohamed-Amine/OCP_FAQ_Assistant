@@ -1,10 +1,29 @@
-j ai oublier mon mot de passer
-chatbot: vouler vous demander le changement de votre mot de passe
-exemple: j'ai un probleme de connexion de mon ordi avec le web
-chat bot: c'est un probleme de connexion internet, voulez vous que je vous guide a resoudre ce probleme
-chatbot: verifier le cable reseau
-chatbot: verifier l'écone de la conexion
-chatbot: verifier les paramaitres du connexion web
-j'ai probleme de demarage de mon orinateur
-chatbot: verifier le cable d'allumentation
-chatbot: est que vous ecoutez des bips sonnaire
+Q: What should I do if my computer won't turn on?
+A: First, check if it's plugged in and if the power outlet is working. If it still doesn't turn on, try a hard reset by holding the power button for 10 seconds.
+
+Q: How do I reset my password?
+A: You can reset your password by clicking the 'Forgot Password?' link on the login screen or contacting the IT department for assistance.
+
+Q: My internet is slow. What can I do?
+A: Try restarting your router and checking for any large downloads or uploads on your network. If the problem persists, contact IT support.
+
+Q: What software do I need to install for remote work?
+A: You will need a VPN client, any collaboration tools your team uses (like Zoom or Slack), and any necessary applications for your specific role.
+
+Q: How do I connect to the company Wi-Fi?
+A: Look for the Wi-Fi network named 'CompanyNetwork' and enter the password provided in the onboarding documents. If you have issues, contact IT support.
+
+Q: What should I do if I receive a suspicious email?
+A: Do not click any links or download attachments. Forward the email to IT support for further investigation.
+
+Q: How do I back up my files?
+A: You can back up your files to the company cloud storage or an external hard drive. Make sure to follow the company’s data backup policy.
+
+Q: What if I need software that's not installed on my computer?
+A: Submit a request to the IT department, and they will evaluate the need and install the necessary software if approved.
+
+Q: Can I use my personal devices for work?
+A: Yes, but make sure to adhere to the company's Bring Your Own Device (BYOD) policy. You'll need to install security software as required.
+
+Q: How can I get help with a technical issue?
+A: You can submit a ticket through the IT support portal or contact the help desk directly for immediate assistance.
