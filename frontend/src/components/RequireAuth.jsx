@@ -16,7 +16,7 @@ const RequireAuth = ({ allowedRoles }) => {
   }
 
   // If user is authenticated but doesn't have the required role
-  return <Navigate to="/unauthorized" state={{ from: location }} replace />;
+  return <Navigate to="/landing" state={{ from: location }} replace />;
 };
 
 export default RequireAuth;

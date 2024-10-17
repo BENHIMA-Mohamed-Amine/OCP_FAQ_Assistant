@@ -5,7 +5,8 @@ pyjwt
 requests
 langchain-core
 langchain-community
-langchain-chroma>=0.1.2
+# langchain-chroma>=0.1.2
+langchain-chroma
 langchain-nvidia-ai-endpoints
 langsmith
 python-dotenv
