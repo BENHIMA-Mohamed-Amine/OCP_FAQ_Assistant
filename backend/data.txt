@@ -27,3 +27,17 @@ A: Yes, but make sure to adhere to the company's Bring Your Own Device (BYOD) po
 
 Q: How can I get help with a technical issue?
 A: You can submit a ticket through the IT support portal or contact the help desk directly for immediate assistance.
+
+Q: Why can’t I send or receive emails?
+A: Check your internet connection, verify email server settings (SMTP, IMAP/POP), and ensure there’s enough storage space in your email account. Look for any email client updates.
+
+A: Common causes include insufficient RAM, too many background processes, malware, or outdated hardware. Close unused programs, run antivirus scans, and consider upgrading the hardware.
+
+Q: Why isn’t the printer working?
+A: Check if the printer is powered on, properly connected, and has paper/ink. Ensure the correct printer driver is installed and clear the print queue if needed.
+
+Q: Why does software crash repeatedly?
+A: Reasons include compatibility issues, insufficient system resources, or corrupted files. Update the software, check for system requirements, and reinstall if needed.
+
+Q: What to do if I forget my password?
+A: Use the "Forgot Password" option to reset it or contact IT support to assist with password recovery/reset.

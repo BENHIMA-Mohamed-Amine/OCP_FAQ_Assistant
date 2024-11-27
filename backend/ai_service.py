@@ -60,7 +60,7 @@ def get_chat_history(messages: List[models.Message]):
 
 
 def get_rag_chain():
-    llm = ChatNVIDIA(model=MODEL_NAME)
+    llm = ChatNVIDIA(model=MODEL_NAME, api_key=os.getenv("NVIDIA_API_KEY"))
     retriever = get_vector_store().as_retriever()
     trimmer = trim_messages(
         max_tokens=65,
@@ -99,9 +99,14 @@ def issueCreate_to_document(issue: models.IssueCreate, id: int) -> Document:
 
 @traceable
 def ask_ai(query: str, messages: List[models.Message]):
+    # print(messages)
     chat_history = get_chat_history(messages)
+    # print(chat_history)
     rag_chain = get_rag_chain()
     input = {"input": query, "chat_history": chat_history}
+    # print(rag_chain)
+    # res = rag_chain.invoke(input)
+    # print(res)
     return rag_chain.invoke(input)["answer"]
 
 
